@@ -13,7 +13,7 @@ draw_image:
 
         cmp cx, 320 ; compare the column position to 320
         jne draw_image_loop ; if it's not equal to the value, then loop back
-    
+
     draw_image_line:
         mov cx, 0x00 ; set the column position to 0
         inc dx ; increment the row position
