@@ -1,0 +1,22 @@
+# Binary files
+*.bin
+*.dat
+*.raw
+
+# Image files
+*.png
+*.jpg
+*.webp
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Log files
+*.log
+
+# Build directory
+build/
+
+# Other ignored files/directories
+_ignore/
