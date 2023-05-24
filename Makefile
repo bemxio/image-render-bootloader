@@ -8,6 +8,8 @@ QEMU = qemu-system-i386
 SRC_DIR = src
 BUILD_DIR = build
 
+SOURCES = $(sort $(wildcard $(SRC_DIR)/*.asm))
+
 IMAGE_PATH = image.png
 FILE_NAME = renderer.bin
 
@@ -24,7 +26,7 @@ clean:
 $(BUILD_DIR)/$(FILE_NAME): $(BUILD_DIR)/bootloader.bin $(BUILD_DIR)/image.bin
 	cat $^ > $@
 
-$(BUILD_DIR)/bootloader.bin: $(SRC_DIR)/bootloader.asm
+$(BUILD_DIR)/bootloader.bin: $(SOURCES)
 	mkdir -p $(BUILD_DIR)
 
 	$(AS) $(ASFLAGS) $< -o $@
