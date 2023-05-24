@@ -1,7 +1,7 @@
 # Binary files
 *.bin
 *.dat
-*.raw
+*.mem
 
 # Image files
 *.png
