@@ -3,13 +3,13 @@ draw_image:
     mov cx, 0x00 ; set the column position to 0
 
     draw_image_loop:
-        mov al, [bx] ; get the next byte from the image
+        mov al, [ebx] ; get the next byte from the image
 
         mov ah, 0x0c ; 'Write Graphics Pixel' function
         int 0x10 ; call the BIOS interrupt
 
         inc cx ; increment the column position
-        inc bx ; increment the image address
+        inc ebx ; increment the image address
 
         cmp cx, 320 ; compare the column position to 320
         jne draw_image_loop ; if it's not equal to the value, then loop back

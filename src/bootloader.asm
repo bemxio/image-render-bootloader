@@ -8,7 +8,7 @@ mov al, 0x13 ; 320x200x256 color mode (VGA)
 int 0x10 ; call the BIOS interrupt
 
 ; render the image
-mov bx, IMAGE_OFFSET ; set the offset to the image
+mov ebx, IMAGE_OFFSET ; set the offset to the image
 
 call read_image ; read the image into memory
 call draw_image ; call the function for drawing the image
