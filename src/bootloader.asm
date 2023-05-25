@@ -17,7 +17,8 @@ jmp $ ; halt the bootloader
 
 ; import required modules
 %include "./src/disk.asm"
-%include "./src/display.asm"
+%include "./src/graphics.asm"
+%include "./src/print.asm"
 
 ; constants
 IMAGE_OFFSET equ 0x7e00 ; the address where the image is loaded
