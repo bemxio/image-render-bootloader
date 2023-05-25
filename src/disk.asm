@@ -22,13 +22,15 @@ read_image:
     ret ; return to caller
 
 disk_error:
+    mov bx, DISK_ERROR ; load the address of the error message
+
     mov ah, 0x00 ; 'Set Video Mode' function
     mov al, 0x03 ; 80x25 text mode
 
     int 0x10 ; call the BIOS interrupt
 
-    mov bx, DISK_ERROR ; load the address of the error message
-    call println ; print the error message
+    call print ; print the error message
+    call line_break ; add a line break
 
     hlt ; halt the system
 
