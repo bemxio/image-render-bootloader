@@ -1,19 +1,12 @@
-DISK_ADDRESS_PACKET:
-    db 0x10 ; size of the packet, 16 bytes by default
-    db 0x00 ; unused, should always be 0
-
-    dw IMAGE_SIZE ; number of sectors to read
-    dw IMAGE_OFFSET ; pointer to the buffer
-    dw 0x00 ; page number, 0 by default
-
-    dd 0x01 ; offset of the sector to read (lower 32-bits)
-    dd 0x00 ; unused here (upper 32-bits)
-
 read_image:
     pusha ; save all of the registers to the stack
 
-    mov ah, 0x42 ; 'Extended Read Sectors From Drive' function
-    mov si, DISK_ADDRESS_PACKET ; load the address of the packet
+    mov ah, 0x02 ; 'Read Sectors Into Memory' function
+    mov al, IMAGE_SIZE ; set the sector amount into the register
+
+    mov cl, 0x02 ; sector (0x02 is the first 'available' sector)
+    mov ch, 0x00 ; cylinder (from 0x0 to 0x3FF)
+    mov dh, 0x00 ; head number (from 0x0 to 0xF)
 
     int 0x13 ; call the BIOS interrupt
     jc disk_error ; if the carry flag is set, there was an error
