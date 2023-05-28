@@ -32,6 +32,6 @@ $(BUILD_DIR)/bootloader.bin: $(SOURCES)
 	$(AS) $(ASFLAGS) $< -o $@
 
 $(BUILD_DIR)/image.bin: $(IMAGE_PATH)
-	$(PYTHON) -m pip install Pillow
+	$(PYTHON) -m pip install -r $(SRC_DIR)/converter/requirements.txt
 
-	$(PYTHON) $(SRC_DIR)/converter.py $< $@
+	$(PYTHON) $(SRC_DIR)/converter/main.py $< $@
