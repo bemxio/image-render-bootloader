@@ -3,7 +3,9 @@ AS = nasm
 ASFLAGS = -f bin
 
 PYTHON = python3
-QEMU = qemu-system-i386
+
+VM = qemu-system-i386
+VMFLAGS = -m 1M
 
 SRC_DIR = src
 BUILD_DIR = build
@@ -17,7 +19,7 @@ FILE_NAME = renderer.bin
 all: $(BUILD_DIR)/$(FILE_NAME)
 
 run: $(BUILD_DIR)/$(FILE_NAME)
-	$(QEMU) -drive format=raw,file=$<
+	$(VM) $(VMFLAGS) -hda $<
 
 clean:
 	rm -rf $(BUILD_DIR)
