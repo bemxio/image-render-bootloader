@@ -8,17 +8,22 @@ To build the bootloader in the easiest way, just follow the instructions below.
 You can do it the manual way with an assembler and GIMP but then, you're on your own.
 
 ### Installing dependencies
-For Windows, you can install [`scoop`](https://scoop.sh/) and run:
+For Windows, you can install [`scoop`](https://scoop.sh/) and use it to install the necessary packages:
 ```powershell
 scoop install nasm make python
 ```
 
-As for Linux, all of the packages should be in your default package manager. Here's an example for Ubuntu:
+As for Linux, all of the packages should be in your default package manager. Here's an example for Debian-based distros:
 ```bash
 sudo apt install nasm make python3
 ```
 
-If you want to run the bootloader, you need to install QEMU as well, which can be done with either `scoop install qemu` or `sudo apt install qemu`, depending on your operating system.
+After that, use `pip` to install [Pillow](https://pypi.org/project/pillow/):
+```bash
+pip install pillow
+```
+
+If you want to run the bootloader, you need to install QEMU as well, which can be done with either `scoop install qemu` or `sudo apt install qemu`, depending on your OS.
 
 ### Building
 Before building the bootloader, you will need to do a couple of things. 
@@ -27,7 +32,7 @@ Before building the bootloader, you will need to do a couple of things.
 2. Open the [`Makefile`](Makefile) and edit variables according to your configuration. The one you will most likely need to change is `IMAGE_PATH`, which should be set to the path of the image you downloaded in the previous step.
 3. Simply run `make` in the root directory of the project.
 
-This will build the bootloader in the `build/renderer.bin` file.
+This will build the bootloader in the `build/bootloader.bin` file.
 If you installed QEMU and want to run the bootloader, you can do so by running `make run` in the root directory of the project.
 
 ## License
