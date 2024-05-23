@@ -4,36 +4,35 @@ ASFLAGS = -f bin
 
 PYTHON = python3
 
-VM = qemu-system-i386
-VMFLAGS = -m 1M
+QEMU = qemu-system-i386
+QEMUFLAGS = -m 1M
 
 SRC_DIR = src
 BUILD_DIR = build
 
 SOURCES = $(sort $(wildcard $(SRC_DIR)/*.asm))
+EXECUTABLE = bootloader.bin
 
 IMAGE_PATH = image.png
-FILE_NAME = renderer.bin
 
 # targets
-all: $(BUILD_DIR)/$(FILE_NAME)
+all: $(BUILD_DIR)/$(EXECUTABLE)
 
-run: $(BUILD_DIR)/$(FILE_NAME)
-	$(VM) $(VMFLAGS) -hda $<
+run: $(BUILD_DIR)/$(EXECUTABLE)
+	$(QEMU) $(QEMUFLAGS) -drive format=raw,file=$^ 
 
 clean:
 	rm -rf $(BUILD_DIR)
 
 # rules
-$(BUILD_DIR)/$(FILE_NAME): $(BUILD_DIR)/bootloader.bin $(BUILD_DIR)/image.bin
+$(BUILD_DIR)/$(EXECUTABLE): $(BUILD_DIR)/code.bin $(BUILD_DIR)/data.bin
 	cat $^ > $@
 
-$(BUILD_DIR)/bootloader.bin: $(SOURCES)
-	mkdir -p $(BUILD_DIR)
-
+$(BUILD_DIR)/code.bin: $(SOURCES) | $(BUILD_DIR)
 	$(AS) $(ASFLAGS) $< -o $@
 
-$(BUILD_DIR)/image.bin: $(IMAGE_PATH)
-	$(PYTHON) -m pip install -r $(SRC_DIR)/converter/requirements.txt
-
+$(BUILD_DIR)/data.bin: $(IMAGE_PATH) | $(BUILD_DIR)
 	$(PYTHON) $(SRC_DIR)/converter/main.py $< $@
+
+$(BUILD_DIR):
+	mkdir -p $@
