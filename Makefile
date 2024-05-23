@@ -13,6 +13,7 @@ BUILD_DIR = build
 SOURCES = $(sort $(wildcard $(SRC_DIR)/*.asm))
 EXECUTABLE = bootloader.bin
 
+PALETTE_PATH = $(SRC_DIR)/palette.json
 IMAGE_PATH = image.png
 
 # targets
@@ -31,8 +32,8 @@ $(BUILD_DIR)/$(EXECUTABLE): $(BUILD_DIR)/code.bin $(BUILD_DIR)/data.bin
 $(BUILD_DIR)/code.bin: $(SOURCES) | $(BUILD_DIR)
 	$(AS) $(ASFLAGS) $< -o $@
 
-$(BUILD_DIR)/data.bin: $(IMAGE_PATH) | $(BUILD_DIR)
-	$(PYTHON) $(SRC_DIR)/converter/main.py $< $@
+$(BUILD_DIR)/data.bin: $(IMAGE_PATH) $(PALETTE_PATH) | $(BUILD_DIR)
+	$(PYTHON) $(SRC_DIR)/converter.py --palette_path $(PALETTE_PATH) $< -o $@
 
 $(BUILD_DIR):
 	mkdir -p $@
