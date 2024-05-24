@@ -20,7 +20,7 @@ sudo apt install nasm make python3
 
 After that, use `pip` to install [Pillow](https://pypi.org/project/pillow/):
 ```bash
-pip install pillow
+python -m pip install pillow
 ```
 
 If you want to run the bootloader, you need to install QEMU as well, which can be done with either `scoop install qemu` or `sudo apt install qemu`, depending on your OS.

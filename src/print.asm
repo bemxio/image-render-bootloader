@@ -4,7 +4,7 @@ print:
     print_loop:
         mov al, [bx] ; move the character at the base address into `al`
 
-        cmp al, 0 ; check if the character is a null byte
+        test al, al ; check if the character is a null byte
         je print_end ; if so, jump to `print_end`
 
         mov ah, 0x0e ; change the interrupt mode to "Teletype Output"

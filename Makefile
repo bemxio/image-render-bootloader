@@ -7,6 +7,8 @@ PYTHON = python3
 QEMU = qemu-system-i386
 QEMUFLAGS = -m 1M
 
+GDB = gdb
+
 SRC_DIR = src
 BUILD_DIR = build
 
@@ -21,6 +23,10 @@ all: $(BUILD_DIR)/$(EXECUTABLE)
 
 run: $(BUILD_DIR)/$(EXECUTABLE)
 	$(QEMU) $(QEMUFLAGS) -drive format=raw,file=$^ 
+
+debug: $(BUILD_DIR)/$(EXECUTABLE)
+	$(QEMU) $(QEMUFLAGS) -S -gdb tcp::2137 -drive format=raw,file=$^ &
+	$(GDB) $^ -ex "target remote localhost:2137"
 
 clean:
 	rm -rf $(BUILD_DIR)

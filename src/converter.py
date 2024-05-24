@@ -31,6 +31,8 @@ def main(input_path: Path, output_path: Path, palette_path: Path, screen_width: 
     with open(output_path, "wb") as file:
         file.write(data)
 
+    #render.show()
+
 if __name__ == "__main__":
     parser = ArgumentParser(description="A script for converting an image for use with the bootloader.")
 
