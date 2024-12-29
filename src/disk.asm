@@ -1,24 +1,24 @@
 IMAGE_SIZE equ 125 ; 125 sectors (64,000 bytes) per image
 
 read_image:
-    pusha ; save all of the registers to the stack
+    pusha ; save registers
 
     mov ah, 0x02 ; 'Read Sectors Into Memory' function
-    mov al, IMAGE_SIZE ; set the sector amount into the register
+    mov al, IMAGE_SIZE ; sector amount
 
     mov cl, 0x02 ; sector (0x02 is the first 'available' sector)
     mov ch, 0x00 ; cylinder (from 0x0 to 0x3FF)
     mov dh, 0x00 ; head number (from 0x0 to 0xF)
 
     int 0x13 ; call the BIOS interrupt
-    jc disk_error ; if the carry flag is set, there was an error
+    jc disk_error ; if the carry flag is set, an error occurred
 
-    popa ; restore all of the registers from the stack
-    ret ; return to caller
+    popa ; restore registers
+    ret ; return from function
 
 disk_error:
     mov si, DISK_ERROR_MESSAGE ; load the address of the error message
-    mov cl, ah ; load the error code into the `cl` register
+    mov cl, ah ; load the error code
 
     mov ah, 0x00 ; 'Set Video Mode' function
     mov al, 0x03 ; 80x25 text mode

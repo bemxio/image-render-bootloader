@@ -1,27 +1,24 @@
-[bits 16] ; set the code to 16-bit mode
-[org 0x7c00] ; set the global offset (0x7c00 is where the BIOS loads the bootloader)
+[bits 16] ; 16-bit mode
+[org 0x7c00] ; global offset
 
-; set the appropriate video mode
-mov ah, 0x00 ; 'Set Video Mode' function
+xor ah, ah ; clear the AH register
 mov al, 0x13 ; 320x200x256 color mode (VGA)
 
 int 0x10 ; call the BIOS interrupt
 
-; render the image
-mov ebx, IMAGE_OFFSET ; set the offset to the image
+mov ax, 0xa000 ; set the video memory address
+mov es, ax ; move the address into the extra segment register
 
 call read_image ; read the image into memory
-call draw_image ; call the function for drawing the image
 
 jmp $ ; halt the bootloader
 
-; import required modules
+; includes
 %include "./src/disk.asm"
-%include "./src/graphics.asm"
 %include "./src/print.asm"
 
-; constants
-IMAGE_OFFSET equ 0x7e00 ; the address where the image is loaded
+; pad the rest of the sector with zeros
+times 510 - ($ - $$) db 0x00
 
-times 510 - ($ - $$) db 0 ; pad the rest of the sector with null bytes
-dw 0xaa55 ; set the magic number
+; boot signature
+dw 0xaa55
