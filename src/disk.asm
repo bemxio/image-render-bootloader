@@ -1,3 +1,5 @@
+IMAGE_SIZE equ 125 ; 125 sectors (64,000 bytes) per image
+
 read_image:
     pusha ; save all of the registers to the stack
 
@@ -15,7 +17,7 @@ read_image:
     ret ; return to caller
 
 disk_error:
-    mov bx, DISK_ERROR ; load the address of the error message
+    mov si, DISK_ERROR_MESSAGE ; load the address of the error message
     mov cl, ah ; load the error code into the `cl` register
 
     mov ah, 0x00 ; 'Set Video Mode' function
@@ -29,7 +31,4 @@ disk_error:
 
     hlt ; halt the system
 
-IMAGE_SIZE equ 125 ; 125 sectors (64,000 bytes) per image
-
-DISK_ERROR: db "error: disk read failed with code 0x", 0
-;SECTOR_ERROR: db "error: incorrect number of sectors read", 0
+DISK_ERROR_MESSAGE: db "Error: Disk read failed with code 0x", 0

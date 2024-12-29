@@ -24,8 +24,8 @@ def main(input_path: Path, output_path: Path, palette_path: Path, screen_width: 
     image = image.resize((width, height))
 
     render.paste(image, (position, 0))
-    render = render.quantize(palette=mask, dither=Image.FLOYDSTEINBERG)
 
+    render = render.quantize(palette=mask, dither=Image.FLOYDSTEINBERG)
     data = bytes(render.getdata())
 
     with open(output_path, "wb") as file:
