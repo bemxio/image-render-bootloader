@@ -1,5 +1,5 @@
 # image-render-bootloader
-A bootloader designed to render an image in 256-color VGA mode. 
+A program running inside the bootsector, designed to render an image in 256-color VGA mode. 
 
 Uses Floyd-Steinberg dithering to convert a regular RGB image into the data that can be displayed in 256-color VGA mode.
 
@@ -28,7 +28,7 @@ If you want to run the bootloader, you need to install QEMU as well, which can b
 ### Building
 Before building the bootloader, you will need to do a couple of things. 
 
-1. Download the image to be displayed, it can be anything you like. Just remember that the color palette is limited to 256 colors, thus some colors might not look that good.
+1. Download the image to be displayed, it can be anything you like. Just remember that the color palette is limited to 256 colors, thus some images might not look that good.
 2. Open the [`Makefile`](Makefile) and edit variables according to your configuration. The one you will most likely need to change is `IMAGE_PATH`, which should be set to the path of the image you downloaded in the previous step.
 3. Simply run `make` in the root directory of the project.
 
