@@ -8,7 +8,19 @@ mov ax, 0x4f02 ; "Set SVGA Video Mode" function
 mov bx, 0x10f ; 320x200 24-bit color mode
 
 int 0x10 ; BIOS interrupt
-jmp $ ; loop forever
+
+chunk_loop:
+    cmp dx, 0x03 ; check if the bank number is 3
+    je loop_forever ; if so, loop forever
+
+    call switch_bank ; switch to the next bank
+    call read_chunk ; read a chunk of data from the disk
+
+    inc dx ; increment the bank number
+    jmp chunk_loop ; repeat the loop
+
+loop_forever:
+    jmp $ ; loop forever
 
 ; functions
 read_chunk:
@@ -28,7 +40,7 @@ switch_bank:
     pusha ; save registers
 
     mov ax, 0x4f05 ; "CPU Video Memory Control" function
-    xor bx, bx ; set window A bank number
+    xor bx, bx ; set the parameters (window A)
 
     int 0x10 ; BIOS interrupt
 
