@@ -2,7 +2,7 @@
 AS = nasm
 ASFLAGS = -f bin
 
-PYTHON = python3
+FFMPEG = ffmpeg
 
 QEMU = qemu-system-i386
 QEMUFLAGS = -monitor stdio
@@ -14,7 +14,6 @@ SOURCES = $(sort $(wildcard $(SRC_DIR)/*.asm))
 EXECUTABLE = image.img
 
 IMAGE_PATH = image.png
-PALETTE_PATH = palette.png
 
 # phony
 .PHONY: all run clean
@@ -35,8 +34,8 @@ $(BUILD_DIR)/$(EXECUTABLE): $(BUILD_DIR)/bootsector.bin $(BUILD_DIR)/data.bin
 $(BUILD_DIR)/bootsector.bin: $(SOURCES) | $(BUILD_DIR)
 	$(AS) $(ASFLAGS) $< -o $@
 
-$(BUILD_DIR)/data.bin: $(IMAGE_PATH) $(PALETTE_PATH) | $(BUILD_DIR)
-	$(PYTHON) $(SRC_DIR)/converter.py -p $(PALETTE_PATH) $< -o $@
+$(BUILD_DIR)/data.bin: $(IMAGE_PATH) | $(BUILD_DIR)
+	$(FFMPEG) -i $< -f rawvideo -pix_fmt rgb24 -s 320x200 $@
 
 $(BUILD_DIR):
 	mkdir -p $@
