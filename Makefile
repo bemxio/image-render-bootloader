@@ -35,7 +35,7 @@ $(BUILD_DIR)/bootsector.bin: $(SOURCES) | $(BUILD_DIR)
 	$(AS) $(ASFLAGS) $< -o $@
 
 $(BUILD_DIR)/data.bin: $(IMAGE_PATH) | $(BUILD_DIR)
-	$(FFMPEG) -i $< -f rawvideo -pix_fmt rgb24 -s 320x200 $@
+	$(FFMPEG) -i $< -f rawvideo -pix_fmt bgr24 -s 320x200 $@
 
 $(BUILD_DIR):
 	mkdir -p $@
