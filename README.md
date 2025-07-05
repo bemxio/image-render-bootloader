@@ -1,5 +1,5 @@
 # image-render-bootloader
-A [16-bit real mode](https://en.wikipedia.org/wiki/Real_mode) program running inside the [bootsector](https://en.wikipedia.org/wiki/Boot_sector), designed to render an image in a 256-color VGA mode. Written in Assembly, designed to be simple and lightweight. Uses Python with [Pillow](https://pillow.readthedocs.io/en/stable/) and [Floyd-Steinberg dithering](https://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering) for image conversion.
+A [16-bit real mode](https://en.wikipedia.org/wiki/Real_mode) program running inside the [bootsector](https://en.wikipedia.org/wiki/Boot_sector), designed to render an image in a standard 320x200 256-color video mode. Written in Assembly (Intel syntax), designed to be simple and lightweight. Uses Python with [Pillow](https://pillow.readthedocs.io/en/stable/) and [Floyd-Steinberg dithering](https://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering) for image conversion.
 
 ## Usage
 To build the project in the intended way, simply follow the instructions below.
