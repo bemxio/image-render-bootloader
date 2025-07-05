@@ -5,12 +5,12 @@ mov byte [DRIVE_NUMBER], dl ; save the drive number for later use
 xor dx, dx ; clear the data register
 
 mov ax, 0x4f02 ; "Set SVGA Video Mode" function
-mov bx, 0x10f ; 320x200 24-bit color mode
+mov bx, 0x115 ; 800x600 24-bit color mode
 
 int 0x10 ; BIOS interrupt
 
 chunk_loop:
-    cmp dx, 0x03 ; check if the bank number is 3
+    cmp dx, 0x16 ; check if the bank number is 22
     je loop_forever ; if so, loop forever
 
     call switch_bank ; switch to the next bank
