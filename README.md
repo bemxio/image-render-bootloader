@@ -1,5 +1,5 @@
 # image-render-bootloader
-A [16-bit real mode](https://en.wikipedia.org/wiki/Real_mode) program running inside the [bootsector](https://en.wikipedia.org/wiki/Boot_sector), designed to render an image in a 256-color VGA mode. Written in Assembly, designed to be simple and lightweight. Uses Python with [Pillow](https://pillow.readthedocs.io/en/stable/) and [Floyd-Steinberg dithering](https://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering) for image conversion.
+A [16-bit real mode](https://en.wikipedia.org/wiki/Real_mode) program running inside the [bootsector](https://en.wikipedia.org/wiki/Boot_sector), designed to render an image using [VBE](https://en.wikipedia.org/wiki/VESA_BIOS_Extensions)'s 800x600 24-bit color mode. Written in Assembly (Intel syntax), designed to be simple and lightweight. Uses [FFmpeg](https://ffmpeg.org/) for image conversion.
 
 ## Usage
 To build the project in the intended way, simply follow the instructions below.
@@ -10,18 +10,13 @@ You can do it the manual way with an assembler, a converter that will genenerate
 #### Windows
 For Windows, you can install [Scoop](https://scoop.sh/) and use it to install the necessary packages:
 ```powershell
-scoop install nasm python make
-```
-
-After that, use [`pip`](https://pip.pypa.io/en/stable/) to install Pillow:
-```bash
-python -m pip install Pillow
+scoop install nasm ffmpeg make
 ```
 
 #### Linux
-As for Linux, all of the packages, including Pillow, should be in your default package manager. Here's an example for Debian-based distributions:
+As for Linux, all of the packages should be in your default package manager. Here's an example for Debian-based distributions:
 ```bash
-sudo apt install nasm python3 python3-pil make
+sudo apt install nasm ffmpeg make
 ```
 
 If you want to run the project, you'll need to install [QEMU](https://www.qemu.org/) as well, which can be done with either `scoop install qemu` or `sudo apt install qemu-system-x86`, depending on your OS.
@@ -29,7 +24,7 @@ If you want to run the project, you'll need to install [QEMU](https://www.qemu.o
 ### Building
 Before building the project, you will need to do a couple of things. 
 
-1. Get the image you want to render and put it inside the root directory of the project. It can be anything you want, just remember that the color palette is limited to 256 colors, thus some images might not look that good.
+1. Get the image you want to render and put it inside the root directory of the project. It can be anything you want, as long as the format is supported by FFmpeg.
 2. Open the [`Makefile`](Makefile) and edit variables accordingly. The one you will most likely need to change is `IMAGE_PATH`, which should be set to the path of the image you downloaded in the previous step.
 3. Simply run `make` in the root directory of the project.
 
