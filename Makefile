@@ -30,6 +30,7 @@ clean:
 # rules
 $(BUILD_DIR)/$(EXECUTABLE): $(BUILD_DIR)/bootsector.bin $(BUILD_DIR)/data.bin
 	cat $^ > $@
+	truncate -s 1440K $@
 
 $(BUILD_DIR)/bootsector.bin: $(SOURCES) | $(BUILD_DIR)
 	$(AS) $(ASFLAGS) $< -o $@
