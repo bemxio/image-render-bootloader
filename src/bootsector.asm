@@ -62,7 +62,7 @@ DISK_ADDRESS_PACKET:
     dd 0x00 ; sector offset (upper 32-bits)
 
 ; constants
-CHUNK_SIZE equ 125 ; 125 sectors (64000 bytes) per image chunk
+CHUNK_SIZE equ 128 ; 128 sectors (65535 bytes) per image chunk
 VIDEO_MEMORY_SEGMENT equ 0xa000 ; segment for the video memory buffer
 
 ; pad the rest of the sector with zeros
