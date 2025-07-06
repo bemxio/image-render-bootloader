@@ -10,17 +10,15 @@ mov bx, 0x115 ; 800x600 24-bit color mode
 int 0x10 ; BIOS interrupt
 
 chunk_loop:
-    cmp dx, 0x16 ; check if the bank number is 22
-    je loop_forever ; if so, loop forever
-
-    call switch_bank ; switch to the next bank
     call read_chunk ; read a chunk of data from the disk
 
     inc dx ; increment the bank number
-    jmp chunk_loop ; repeat the loop
+    call switch_bank ; switch to the next bank
 
-loop_forever:
-    jmp $ ; loop forever
+    cmp dx, 0x16 ; check if the bank number is 22
+    jl chunk_loop ; if less, repeat the loop
+
+jmp $ ; loop forever
 
 ; functions
 read_chunk:
