@@ -31,6 +31,13 @@ Before building the project, you will need to do a couple of things.
 This will output the final image inside the `build/image.img` file.
 If you've installed QEMU and want to run the project, you can do so by running `make run` in the root directory of the project.
 
+## Compatibility
+The code makes a lot of assumptions about the environment it runs in, without checking if they are true, for simplicity's sake. As such, there might be some adjustments needed in order to run it on a real machine.
+
+So far, it has been tested on:
+- QEMU 10.0.0
+- VirtualBox 7.1.10 (after converting the image to VDI)
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
